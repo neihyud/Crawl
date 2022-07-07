@@ -33,14 +33,6 @@ async function scrapeData() {
             posts.push(post)
         }
 
-        //  fs.writeFile('post2.json', JSON.stringify(posts, null, 2), (err) => {
-        //     if (err) {
-        //         console.log(err)
-        //         return
-        //     }
-        //     console.log('Success')
-        // })
-
         const worksheet = XLSX.utils.json_to_sheet(posts);
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, "Dates");
@@ -50,6 +42,7 @@ async function scrapeData() {
         console.log(err)
     }
 }
+
 async function getListUrl(list, url) {
     try {
         const { data } = await axios.get(url)
@@ -65,26 +58,6 @@ async function getListUrl(list, url) {
         console.log(err)
     }
 }
-
-// async function getListUrl() {
-//     try {
-//         const { data } = await axios.get(url)
-//         const $ = cheerio.load(data)
-//         const listUrl = []
-//         const listItems = $('.issue-summary .media-body')
-//         listItems.each((idx, el) => {
-//             var infoLink = {}
-//             infoLink.number = $(el).children('a').text().trim()
-//             infoLink.url = $(el).children('a').attr('href')
-//             listUrl.push(infoLink)
-//         })
-//         return listUrl
-//     } catch (err) {
-//         console.log(err)
-//     }
-// }
-
-
 
 scrapeData()
 app.listen(8080)
